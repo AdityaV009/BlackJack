@@ -15,11 +15,11 @@ public class Blackjack{
         dealerHand.add(drawCard());
     }
    
-    private static int drawCard() {
+    public int drawCard() {
         int card = random.nextInt(13) + 1;
         return Math.min(card, 10); // Face cards are worth 10
     }
-     private static int handValue(List<Integer> hand) {
+     public int handValue(List<Integer> hand) {
         int total = 0;
         int aces = 0;
 
