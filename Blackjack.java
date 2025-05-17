@@ -3,13 +3,17 @@ import java.util.*;
 public class Blackjack{
     private static final Random random = new Random();
     private static final Scanner scanner = new Scanner(System.in);
-    ArrayListList<int> playerHand = new ArrayList<int>();
-    ArrayList<int> dealerHand = new ArrayList<int>();
+    private ArrayList<Integer> playerHand;
+    private ArrayList<Integer> dealerHand;
 
-    playerHand.add(drawCard());
-    playerHand.add(drawCard());
-    dealerHand.add(drawCard());
-    dealerHand.add(drawCard());
+    public Blackjack(){
+        playerHand = new ArrayList<Integer>();
+        dealerHand = new ArrayList<Integer>();
+        playerHand.add(drawCard());
+        playerHand.add(drawCard());
+        dealerHand.add(drawCard());
+        dealerHand.add(drawCard());
+    }
    
     private static int drawCard() {
         int card = random.nextInt(13) + 1;
@@ -30,5 +34,8 @@ public class Blackjack{
         }
 
         return total;
+    }
+    public ArrayList<Integer> getPlayerHand(){
+        return playerHand;
     }
 }
