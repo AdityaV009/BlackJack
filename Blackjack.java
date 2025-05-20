@@ -35,7 +35,32 @@ public class Blackjack{
 
         return total;
     }
-    public ArrayList<Integer> getPlayerHand(){
+     public ArrayList<Integer> getPlayerHand() {
         return playerHand;
+    }
+
+    public ArrayList<Integer> getDealerHand() {
+        return dealerHand;
+    }
+
+    public void playerHit() {
+        playerHand.add(drawCard());
+    }
+
+     public void dealerPlay() {
+        while (handValue(dealerHand) < 17) {
+            dealerHand.add(drawCard());
+        }
+    }
+
+    public String getResult() {
+        int playerTotal = handValue(playerHand);
+        int dealerTotal = handValue(dealerHand);
+
+        if (playerTotal > 21) return "You bust! Dealer wins.";
+        if (dealerTotal > 21) return "Dealer busts! You win!";
+        if (playerTotal > dealerTotal) return "You win!";
+        if (playerTotal < dealerTotal) return "Dealer wins.";
+        return "Its a tie!";
     }
 }
