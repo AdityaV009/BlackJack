@@ -24,11 +24,11 @@ public class PokerV2 {
                     fullDeck.add(new Card(ranks[j], suits[i], i+2));
                 }
             }
-            shuffle9);
+            shuffle();
         }
 
         //make sure we can shuffle multiple times
-        void suffle() {
+        void shuffle() {
             Collections.shuffle(fullDeck);
         }
 
@@ -88,9 +88,24 @@ public class PokerV2 {
                     isFlush=true;
                 }
             }
-
             
+            boolean four = false, three = false;
+            int pairs = 0;
+            for (int c : cnt) {
+                if (c == 4) four = true;
+                if (c == 3) three = true;
+                if (c == 2) pairs++;
+            }
 
+            if (isFlush && isStraight) return 8;
+            if (four) return 7;
+            if (three && pairs == 1) return 6;
+            if (isFlush) return 5;
+            if (isStraight) return 4;
+            if (three) return 3;
+            if (pairs == 2) return 2;
+            if (pairs == 1) return 1;
+            return 0;
         }
 
         int[] countCards (ArrayList<Integer> vals){
@@ -118,5 +133,29 @@ public class PokerV2 {
             }
             return true;
         }
+
+        void bet(individualHand[] players, Scanner scanner, int pot){
+            for(individualHand p: players){
+                //check end case
+                if(p.chips<=0 || p.hasFolded){
+                    continue;
+                }
+                System.out.println("Player " + p.playerName + " has " + p.chips + " chips.");
+                System.out.println("enter your bet (0 to fold): ");
+                int amount = scanner.nextInt();
+                scanner.nextLine();
+                if(amount == 0) {
+                    p.hasFolded = true;
+                    System.out.println(p.playerName + " folds.");
+                } else if(amount>p.chips){
+                    System.out.println();
+                    System.out.println("More than your chips. Your bet has been set at " + p.chips + ".");
+                } else {
+                    p.chips -= amount;
+                    pot += amount;
+                }
+            }
+        }
+
     }
 }
