@@ -13,7 +13,7 @@ public class PokerV2 {
     }
 
     public static class Deck {
-        ArrayList<Card> fullDeck;
+        static ArrayList<Card> fullDeck;
 
         Deck() {
             fullDeck = new ArrayList<Card>();
@@ -28,7 +28,7 @@ public class PokerV2 {
         }
 
         //make sure we can shuffle multiple times
-        void shuffle() {
+        public static void shuffle() {
             Collections.shuffle(fullDeck);
         }
 
@@ -43,12 +43,14 @@ public class PokerV2 {
         ArrayList<Card> myHand;
         int chips;
         boolean hasFolded;
+        int handScore;
 
         individualHand(String newName, int currChips){
             playerName=newName;
             chips=currChips;
             myHand = new ArrayList<>();
             hasFolded=false;
+            handScore=-1;
         }
 
         void displayHand() {
@@ -59,7 +61,7 @@ public class PokerV2 {
     }
 
         //check for what is the strongest hand possible
-    int checkStrongest(ArrayList<Card> allCards) {
+    public static int checkStrongest(ArrayList<Card> allCards) {
         ArrayList<Integer> values = new ArrayList<>();
         ArrayList<String> suits = new ArrayList<>();
         for(Card c: allCards){
@@ -111,7 +113,7 @@ public class PokerV2 {
     }
 
     //functions for evaluating possible strongest hands
-    int[] countCards (ArrayList<Integer> vals){
+    static int[] countCards (ArrayList<Integer> vals){
         int[] cnt = new int[15];
         for(Integer v: vals){
             cnt[(int)v]++;
@@ -119,7 +121,7 @@ public class PokerV2 {
         return cnt;
     }
 
-    boolean checkStraight(ArrayList<Integer> vals){
+    static boolean checkStraight(ArrayList<Integer> vals){
         for(int i=0; i<vals.size()-1; i++){
             if(vals.get(i)!=vals.get(i+1)-1){
                 return false;
@@ -128,7 +130,7 @@ public class PokerV2 {
         return true;
     }
 
-    boolean checkFlush(ArrayList<String> vals){
+    static boolean checkFlush(ArrayList<String> vals){
         for(int i=0; i<vals.size()-1; i++){
             if(vals.get(i)!=vals.get(i+1)){
                 return false;
@@ -138,7 +140,7 @@ public class PokerV2 {
     }
 
     //function for bets for every player
-    public static void bet(individualHand[] players, Scanner scanner, int pot){
+    public static int bet(individualHand[] players, Scanner scanner, int pot){
         for(individualHand p: players){
             //check end case
             if(p.chips<=0 || p.hasFolded){
@@ -159,5 +161,6 @@ public class PokerV2 {
                 pot += amount;
             }
         }
+        return pot;
     }
 }
