@@ -10,6 +10,10 @@ public class PokerV2 {
             suit=newSuit;
             num=newNum;
         }
+        
+        public String toString() {
+            return rank + " of " + suit;
+        }
     }
 
     public static class Deck {
