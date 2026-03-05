@@ -6,6 +6,7 @@ public class Blackjack{
     private ArrayList<Integer> playerHand;
     private ArrayList<Integer> dealerHand;
 
+    //fdalfjdlkfjalksfjldskaf
     public Blackjack(){
         playerHand = new ArrayList<Integer>();
         dealerHand = new ArrayList<Integer>();
